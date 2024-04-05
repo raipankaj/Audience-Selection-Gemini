@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <style>
+        body {
+          width: 800px;
+          height: 600px
+        }
+       
+        .container {
+          display: flex; /* Make the container a flexbox */
+          width: 100%; /* Set the container width to 100% */
+        }
+
+        .container > input {
+          flex: 1; /* Make each child element occupy equal space */
+          padding: 5px 10px; /* Add padding for space within the elements */
+          margin: 0 5px; /* Add margin for space between the elements */
+        }
+        .container > button {
+          flex: 1; /* Make each child element occupy equal space */
+        }
+
+        .questionsContainer {
+          display: flex; /* Make the container a flexbox */
+          width: 100%; /* Set the container width to 100% */
+        }
+
+        .questionsContainer > input {
+          flex: 1; /* Make each child element occupy equal space */
+          padding: 5px 10px; /* Add padding for space within the elements */
+          margin: 0 5px; /* Add margin for space between the elements */
+        }
+        .questionsContainer > button {
+          flex: 1; /* Make each child element occupy equal space */
+        }
+
+
+        button {
+          /* Common styles for the button */
+          background-color: #3498db; /* Green (default) */
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          cursor: pointer;
+        }
+
+        table {
+          border-collapse: collapse;  /* Ensures borders appear around cells */
+          width: 100%;  /* Sets full width */
+          margin: 0 auto;  /* Centers the table horizontally (optional) */
+          flex: 1;
+        }
+        th, td {
+          border: 1px solid black;  /* Defines border for header and data cells */
+          padding: 5px;  /* Adds padding around cell content (optional) */
+        }
+        tr:nth-child(even) {
+          background-color: #F0FFFF; /* Light color for even rows */
+        }
+
+        tr:nth-child(odd) {
+          background-color: #89CFF0; /* Dark color for odd rows */
+        }
+
+        label {
+          position: absolute;
+          top: 50%;
+          left: 10px;
+          transform: translateY(-50%);
+          pointer-events: none; /* Prevents accidental clicks on labels */
+          transition: 0.2s ease-in-out;  /* Smooth transition for label position */
+        }
+
+        p {
+          white-space: pre-wrap;
+        }
+        input {
+          padding-left: 20px; /* Space for the floating label */
+          border: 1px solid #3498db;
+          height: 48px;
+          border-radius: 4px;
+          width: 56px;
+        }
+
+        input:focus + label,
+        input:valid + label {
+          font-size: 0.8em; /* Adjust font size for smaller label when active */
+          top: 0; /* Move the label up when focused or valid */
+          color: #3498db; /* Optional: change label color when active */
+        }
+
+        input:valid {
+          border-color: #3498db; /* Optional: change border color for valid input */
+        }
+        #fetchRecords {
+          border-radius: 5px; /* Add rounded corners */
+          /* Other button styles (optional) */
+          background-color: #3498db; /* Example color */
+          color: white;
+          padding: 10px 20px; /* Adjust padding as needed */
+        }
+        #fetchRecords:disabled {
+          /* Styles for disabled state */
+          background-color: #ccc; /* Grayed out */
+          cursor: not-allowed; /* Indicate non-clickable state */
+        }
+        #fetchRecords:hover {
+          background-color: #30a7e5; /* Blue for hover state */
+          color: white; /* White text for hover state */
+        }
+
+        #fetchRecords:active {
+          background-color: #298dba; /* Darker blue for active (pressed) state */
+          transform: translateY(2px); /* Slight downward shift on press */
+        }
+
+        #askQuestion {
+          border-radius: 5px; /* Add rounded corners */
+          /* Other button styles (optional) */
+          background-color: #3498db; /* Example color */
+          color: white;
+          padding: 10px 20px; /* Adjust padding as needed */
+        }
+        #askQuestion:disabled {
+          /* Styles for disabled state */
+          background-color: #ccc; /* Grayed out */
+          cursor: not-allowed; /* Indicate non-clickable state */
+        }
+        #askQuestion:hover {
+          background-color: #30a7e5; /* Blue for hover state */
+          color: white; /* White text for hover state */
+        }
+
+        #askQuestion:active {
+          background-color: #298dba; /* Darker blue for active (pressed) state */
+          transform: translateY(2px); /* Slight downward shift on press */
+        }
+      </style>
+    </head>
+
+    <body>
+
+      <h1>Audience Selection by Gemini</h1>
+      <p>Reduce time to select appropriate audience for your next tech event by using the power of Gemini Pro 1.0. T&C applied same as Gemini Pro 1.0 usage.</p>
+    
+
+      <div class="container">
+        <input type="text" id="startRow" placeholder="Start Row">
+        <input type="text" id="startColumn" placeholder="Start Column">
+        <input type="text" id="endRow" placeholder="End Row">
+        <input type="text" id="endColumn" placeholder="End Column">
+
+        <input type="text" id="sheetId" placeholder="Sheet Id / Url">
+        <button id="fetchRecords" disabled>Fetch Records</button>
+      </div>
+
+      <br>
+      <br>
+      <div id="myTable" style="max-height: 300px; overflow-y: auto;"></div>
+      <br>
+      <br>
+      <div class="questionsContainer" style="display: none;">
+        <input type="text" id="userQuestion" placeholder="What are the constraints for selection" width="500px">
+        <button id="askQuestion">Submit</button>
+      </div>
+      <br>
+      <br>
+      <p id="genResponse"></p>
+      <br>
+      <br>
+      <div class="report" style="display: none;">
+        <button id="downloadReport">Download Report</button>
+      </div>
+      <br>
+      <br>
+      <script src="content.js"></script>
+    </body>
+  </html>
